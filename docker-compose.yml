@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    image: ghcr.io/limhenry/rss-translate:latest
+    ports:
+      - '3000:3000'
+    depends_on:
+      - redis
+    env_file:
+      - .env
+    environment:
+      - REDIS_HOST=redis
+  redis:
+    image: 'redis:alpine'
+    ports:
+      - '6379:6379'

@@ -1,0 +1,43 @@
+{
+  "name": "rss-translate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint 'src/**/*.ts'",
+    "lint:fix": "eslint 'src/**/*.ts' --fix",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@genkit-ai/compat-oai": "^1.27.0",
+    "@genkit-ai/google-genai": "^1.27.0",
+    "@google-cloud/translate": "^9.3.0",
+    "dotenv": "^17.2.3",
+    "fastify": "^5.6.2",
+    "genkit": "^1.27.0",
+    "ioredis": "^5.8.2",
+    "node-fetch": "^3.3.2",
+    "redis": "^5.10.0",
+    "xml2js": "^0.6.2",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/ioredis": "^4.28.10",
+    "@types/node": "^24.0.0",
+    "@types/node-fetch": "^2.6.13",
+    "@types/xml2js": "^0.4.14",
+    "@typescript-eslint/eslint-plugin": "^8.50.0",
+    "@typescript-eslint/parser": "^8.50.0",
+    "eslint": "^9.39.2",
+    "eslint-config-google": "^0.14.0",
+    "nodemon": "^3.1.11",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.50.0"
+  }
+}
