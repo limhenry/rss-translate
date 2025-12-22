@@ -29,18 +29,28 @@ export class GoogleBasicProvider extends BaseProvider {
       sourceLanguage: string,
       targetLanguage: string,
   ): Promise<string[]> {
-    const q = texts.map((text) => `q=${encodeURIComponent(text)}`).join('&');
-    const url = `${this.apiUrl}?key=${this.apiKey}&${q}&source=` +
-      `${sourceLanguage}&target=${targetLanguage}`;
+    const url = `${this.apiUrl}?key=${this.apiKey}`;
+    const body = {
+      q: texts,
+      source: sourceLanguage,
+      target: targetLanguage,
+    };
 
     if (this.logging) {
-      console.log('[GoogleBasicProvider] Request:', {url});
+      console.log('[GoogleBasicProvider] Request:', {url, body});
     }
 
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {'Content-Type': 'application/json'},
+    });
 
     if (!response.ok) {
-      throw new Error(`Google Translation API error: ${response.statusText}`);
+      const errorBody = await response.text();
+      throw new Error(
+          `Google Translation API error: ${response.statusText} - ${errorBody}`,
+      );
     }
 
     const result = (await response.json()) as GoogleTranslateResponse;
