@@ -1,0 +1,17 @@
+# Git
+.git
+.gitignore
+
+# Node
+node_modules
+npm-debug.log
+
+# Environment
+.env
+
+# Documentation
+README.md
+
+# Docker
+Dockerfile
+docker-compose.yml
