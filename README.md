@@ -108,8 +108,6 @@ The following environment variables are used to configure the application. These
 | `REDIS_HOST`           | The hostname of the Redis server.                                                                       | `localhost`    |
 | `REDIS_PORT`           | The port of the Redis server.                                                                           | `6379`         |
 | `GOOGLE_API_KEY`       | Your API key for the Google Cloud Translation API (Basic).                                              |                |
-| `GOOGLE_PROJECT_ID`    | Your Google Cloud project ID for the Translation API (Advanced).                                        |                |
-| `GOOGLE_LOCATION`      | The Google Cloud location for the Translation API (Advanced) (e.g., `global`, `us-central1`).             |                |
 | `GEMINI_API_KEY`       | Your API key for the Gemini API.                                                                        |                |
 | `OPENAI_API_KEY`       | Your API key for the OpenAI API.                                                                        |                |
 | `GEMINI_MODEL`         | The Gemini model to use (defaults to `gemini-2.5-flash`).                                                | `gemini-2.5-flash` |

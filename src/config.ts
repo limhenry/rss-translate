@@ -11,8 +11,6 @@ export const config = {
   },
   google: {
     apiKey: process.env.GOOGLE_API_KEY,
-    projectId: process.env.GOOGLE_PROJECT_ID,
-    location: process.env.GOOGLE_LOCATION,
   },
   gemini: {
     apiKey: process.env.GEMINI_API_KEY,
