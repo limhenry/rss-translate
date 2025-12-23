@@ -127,14 +127,18 @@ The workflow is defined in `.github/workflows/docker-publish.yml` and will trigg
 
 To publish a new version:
 
-1.  Commit your changes.
-2.  Create a new tag for the release.
+1.  Ensure all your changes are committed to the main branch.
+2.  Run the `npm version` command to bump the version, create a commit, and tag it.
     ```bash
-    git tag v1.0.0
+    # For a patch release (e.g., v1.0.0 -> v1.0.1)
+    npm version patch
+
+    # Or for a minor release (e.g., v1.0.1 -> v1.1.0)
+    npm version minor
     ```
-3.  Push the tag to GitHub.
+3.  Push the commit and the new tag to GitHub. This will trigger the workflow.
     ```bash
-    git push origin v1.0.0
+    git push --follow-tags
     ```
 
 GitHub Actions will then automatically build and push the image to `ghcr.io/${{ github.repository }}`.
