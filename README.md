@@ -6,8 +6,7 @@ This project is a web server that translates the titles of an RSS feed from a so
 
 - **RSS Feed Translation**: Translates the titles of articles in an RSS feed.
 - **Multiple Translation Providers**: Supports various translation services, which can be configured via an environment variable.
-    - Google Cloud Translation - Basic API (`google_basic`)
-    - Google Cloud Translation - Advanced API (`google_advanced`)
+    - Google Cloud Translation - Basic API (`google_translate`)
     - Gemini (`gemini`)
     - OpenAI (`openai`)
 - **Caching**: Caches translated titles in Redis to reduce redundant API calls and improve performance.
@@ -105,7 +104,7 @@ The following environment variables are used to configure the application. These
 | Variable               | Description                                                                                             | Default        |
 | ---------------------- | ------------------------------------------------------------------------------------------------------- | -------------- |
 | `LOGGING`                | Set to `true` to enable detailed logging for caching and translation API calls.                | `false`        |
-| `TRANSLATE_PROVIDER`   | The translation provider to use. Options: `google_basic`, `google_advanced`, `gemini`, `openai`. See Features section for full names. | `google_basic` |
+| `TRANSLATE_PROVIDER`   | The translation provider to use. Options: `google_translate`, `gemini`, `openai`. See Features section for full names. | `google_translate` |
 | `REDIS_HOST`           | The hostname of the Redis server.                                                                       | `localhost`    |
 | `REDIS_PORT`           | The port of the Redis server.                                                                           | `6379`         |
 | `GOOGLE_API_KEY`       | Your API key for the Google Cloud Translation API (Basic).                                              |                |
@@ -113,6 +112,8 @@ The following environment variables are used to configure the application. These
 | `GOOGLE_LOCATION`      | The Google Cloud location for the Translation API (Advanced) (e.g., `global`, `us-central1`).             |                |
 | `GEMINI_API_KEY`       | Your API key for the Gemini API.                                                                        |                |
 | `OPENAI_API_KEY`       | Your API key for the OpenAI API.                                                                        |                |
+| `GEMINI_MODEL`         | The Gemini model to use (defaults to `gemini-2.5-flash`).                                                | `gemini-2.5-flash` |
+| `OPENAI_MODEL`         | The OpenAI model to use (defaults to `gpt-4o`).                                                        | `gpt-4o`         |
 
 ## Disclaimer
 

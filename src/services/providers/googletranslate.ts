@@ -9,7 +9,7 @@ interface GoogleTranslateResponse {
   };
 }
 
-export class GoogleBasicProvider extends BaseProvider {
+export class GoogleTranslateProvider extends BaseProvider {
   private apiKey: string;
   private logging: boolean;
   private apiUrl =
@@ -37,7 +37,7 @@ export class GoogleBasicProvider extends BaseProvider {
     };
 
     if (this.logging) {
-      console.log('[GoogleBasicProvider] Request:', {url, body});
+      console.log('[GoogleTranslateProvider] Request:', {url, body});
     }
 
     const response = await fetch(url, {
@@ -56,7 +56,7 @@ export class GoogleBasicProvider extends BaseProvider {
     const result = (await response.json()) as GoogleTranslateResponse;
 
     if (this.logging) {
-      console.log('[GoogleBasicProvider] Response:', result);
+      console.log('[GoogleTranslateProvider] Response:', result);
     }
 
     return result.data.translations.map((t) => t.translatedText);

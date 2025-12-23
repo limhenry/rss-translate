@@ -1,6 +1,5 @@
 import {CacheService} from './cacheService.js';
-import {GoogleBasicProvider} from './providers/googleBasic.js';
-import {GoogleAdvancedProvider} from './providers/googleAdvanced.js';
+import {GoogleTranslateProvider} from './providers/googletranslate.js';
 import {GenkitProvider} from './providers/genkit.js';
 import {googleAI} from '@genkit-ai/google-genai';
 import {openAI} from '@genkit-ai/compat-oai/openai';
@@ -75,29 +74,24 @@ export class TranslationService {
       console.log(`Using translation provider: ${config.provider}`);
     }
     switch (config.provider) {
-      case 'google_basic':
+      case 'google_translate':
         if (!config.google.apiKey) {
           throw new Error('Google API key is not configured.');
         }
-        return new GoogleBasicProvider(config.google.apiKey, config.logging);
-      case 'google_advanced':
-        if (!config.google.projectId || !config.google.location) {
-          throw new Error('Google Advanced provider is not fully configured.');
-        }
-        return new GoogleAdvancedProvider(
-            {
-              projectId: config.google.projectId,
-              location: config.google.location,
-            },
+        return new GoogleTranslateProvider(
+            config.google.apiKey,
             config.logging,
         );
       case 'gemini':
         return new GenkitProvider(
-            googleAI.model('gemini-1.5-flash'),
+            googleAI.model(config.gemini.model),
             config.logging,
         );
       case 'openai':
-        return new GenkitProvider(openAI.model('gpt-4o'), config.logging);
+        return new GenkitProvider(
+            openAI.model(config.openai.model),
+            config.logging,
+        );
       default:
         throw new Error(`Unknown translation provider: ${config.provider}`);
     }

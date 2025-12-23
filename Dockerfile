@@ -1,5 +1,5 @@
 # Stage 1: Build the application using esbuild
-FROM node:24-slim AS builder
+FROM node:24-alpine AS builder
 
 WORKDIR /usr/src/app
 
@@ -9,7 +9,7 @@ COPY . .
 RUN npm run build
 
 # Stage 2: Create the final production image
-FROM node:24-slim
+FROM node:24-alpine
 
 WORKDIR /usr/src/app
 
