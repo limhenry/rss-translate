@@ -8,10 +8,11 @@ export const rssRoutes = async (
   const {rssService} = options;
 
   server.get('/', async (request, reply) => {
-    const {url, sl, tl} = request.query as {
+    const {url, sl, tl, prefix} = request.query as {
       url: string;
       sl: string;
       tl: string;
+      prefix?: string;
     };
 
     if (!url) {
@@ -19,7 +20,7 @@ export const rssRoutes = async (
     }
 
     try {
-      const translatedRss = await rssService.translateRss(url, sl, tl);
+      const translatedRss = await rssService.translateRss(url, sl, tl, prefix);
       reply.header('Content-Type', 'application/xml');
       reply.send(translatedRss);
     } catch (error) {

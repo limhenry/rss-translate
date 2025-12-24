@@ -4,6 +4,7 @@ import {TranslationService} from './translationService.js';
 
 interface RssItem {
   title: string[];
+  link?: string[];
 }
 
 export class RssService {
@@ -13,6 +14,7 @@ export class RssService {
       url: string,
       sourceLanguage: string,
       targetLanguage: string,
+      linkPrefix?: string,
   ): Promise<string> {
     const response = await fetch(url);
     const xml = await response.text();
@@ -34,6 +36,9 @@ export class RssService {
     items.forEach((item, index) => {
       if (translatedTitles[index]) {
         item.title[0] = translatedTitles[index];
+      }
+      if (linkPrefix && item.link?.[0]) {
+        item.link[0] = linkPrefix + item.link[0];
       }
     });
 

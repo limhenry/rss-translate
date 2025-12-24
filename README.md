@@ -81,21 +81,22 @@ The server will be available at `http://localhost:3000`.
 
 The application exposes a single GET endpoint to fetch and translate an RSS feed.
 
-`GET /?url=<rss-url>&sl=<source-language>&tl=<target-language>`
+`GET /?url=<rss-url>&sl=<source-language>&tl=<target-language>&prefix=<link-prefix>`
 
 **Parameters:**
 
 - `url`: The URL of the RSS feed to translate.
 - `sl`: The source language of the feed (e.g., `DE` for German).
 - `tl`: The target language for the translation (e.g., `EN` for English).
+- `prefix` (optional): A URL to prepend to each item's link in the RSS feed. This is useful for routing links through a proxy service.
 
 **Example:**
 
 ```
-http://localhost:3000/?url=https://www.ndr.de/index~rss2.xml&sl=DE&tl=EN
+http://localhost:3000/?url=https://www.ndr.de/index~rss2.xml&sl=DE&tl=EN&prefix=https://proxy.com/
 ```
 
-This will return an XML response with the titles of the NDR RSS feed translated from German to English.
+This will return an XML response with the titles of the NDR RSS feed translated from German to English, and each item's link will be prefixed with the provided URL.
 
 ## Environment Variables
 
