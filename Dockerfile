@@ -1,19 +1,24 @@
-# Stage 1: Build the application using esbuild
-FROM node:24-alpine AS builder
+# Stage 1: Build the Go application
+FROM golang:1.26-alpine AS builder
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
-RUN npm ci
+COPY go.mod go.sum ./
+RUN go mod download
+
 COPY . .
-RUN npm run build
+
+# Build a statically linked binary
+RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-w -s" -o rss-translate .
 
 # Stage 2: Create the final production image
-FROM node:24-alpine
+FROM alpine:3.20
 
 WORKDIR /usr/src/app
 
-# Copy the single bundled file from the builder stage
-COPY --from=builder /usr/src/app/dist/index.js ./dist/index.js
+# Install CA certificates to enable HTTPS calls to Google Translate
+RUN apk add --no-cache ca-certificates
 
-CMD [ "node", "dist/index.js" ]
+COPY --from=builder /usr/src/app/rss-translate ./rss-translate
+
+CMD [ "./rss-translate" ]
