@@ -1,6 +1,7 @@
 services:
   app:
     build: .
+    container_name: rss
     image: ghcr.io/limhenry/rss-translate:latest
     ports:
       - '3000:3000'
@@ -12,6 +13,7 @@ services:
     environment:
       - REDIS_HOST=redis
   redis:
+    container_name: rss-redis
     image: 'redis:alpine'
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
