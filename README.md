@@ -5,21 +5,15 @@ This project is a web server that translates the titles of an RSS feed from a so
 ## Features
 
 - **RSS Feed Translation**: Translates the titles of articles in an RSS feed.
-- **Multiple Translation Providers**: Supports various translation services, which can be configured via an environment variable.
-    - Google Cloud Translation - Basic API (`google_translate`)
-    - Gemini (`gemini`)
-    - OpenAI (`openai`)
+- **Google Cloud Translation**: Translates titles using Google Cloud Translation Basic API.
 - **Caching**: Caches translated titles in Redis to reduce redundant API calls and improve performance.
 - **Dockerized**: The application is fully containerized with Docker and Docker Compose for easy setup and deployment.
 - **Batch Translations**: Gathers all titles from the RSS feed and translates them in a single batch request for efficiency.
-- **Structured Output**: Uses structured output (with Zod schemas) when using Genkit providers to ensure reliable API responses.
 
 ## Technologies Used
 
 - **Backend**: [Node.js](https://nodejs.org/), [Fastify](https://fastify.dev/), [TypeScript](https://www.typescriptlang.org/)
-- **Translation**:
-    - [Genkit](https://firebase.google.com/docs/genkit) for [Gemini](https://ai.google.dev/docs) and [OpenAI](https://platform.openai.com/docs) providers
-    - [Google Cloud Translation API](https://cloud.google.com/translate/docs)
+- **Translation**: [Google Cloud Translation API](https://cloud.google.com/translate/docs)
 - **Database**: [Redis](https://redis.io/) for caching
 - **Parsing**: `xml2js` for parsing RSS feeds
 - **Containerization**: [Docker](https://www.docker.com/), [Docker Compose](https://docs.docker.com/compose/)
@@ -51,7 +45,7 @@ Follow these instructions to get a copy of the project up and running on your lo
     ```bash
     cp .env.example .env
     ```
-    Open the `.env` file and add your API keys for the translation providers you intend to use. See the [Environment Variables](#environment-variables) section for more details.
+    Open the `.env` file and add your Google Cloud Translation API key. See the [Environment Variables](#environment-variables) section for more details.
 
 ## Usage
 
@@ -102,17 +96,12 @@ This will return an XML response with the titles of the NDR RSS feed translated 
 
 The following environment variables are used to configure the application. These should be defined in a `.env` file in the project root.
 
-| Variable               | Description                                                                                             | Default        |
-| ---------------------- | ------------------------------------------------------------------------------------------------------- | -------------- |
-| `LOGGING`                | Set to `true` to enable detailed logging for caching and translation API calls.                | `false`        |
-| `TRANSLATE_PROVIDER`   | The translation provider to use. Options: `google_translate`, `gemini`, `openai`. See Features section for full names. | `google_translate` |
-| `REDIS_HOST`           | The hostname of the Redis server.                                                                       | `localhost`    |
-| `REDIS_PORT`           | The port of the Redis server.                                                                           | `6379`         |
-| `GOOGLE_API_KEY`       | Your API key for the Google Cloud Translation API (Basic).                                              |                |
-| `GEMINI_API_KEY`       | Your API key for the Gemini API.                                                                        |                |
-| `OPENAI_API_KEY`       | Your API key for the OpenAI API.                                                                        |                |
-| `GEMINI_MODEL`         | The Gemini model to use (defaults to `gemini-2.5-flash`).                                                | `gemini-2.5-flash` |
-| `OPENAI_MODEL`         | The OpenAI model to use (defaults to `gpt-4o`).                                                        | `gpt-4o`         |
+| Variable         | Description                                                                     | Default     |
+| ---------------- | ------------------------------------------------------------------------------- | ----------- |
+| `LOGGING`        | Set to `true` to enable detailed logging for caching and translation API calls. | `false`     |
+| `REDIS_HOST`     | The hostname of the Redis server.                                               | `localhost` |
+| `REDIS_PORT`     | The port of the Redis server.                                                   | `6379`      |
+| `GOOGLE_API_KEY` | Your API key for the Google Cloud Translation API (Basic).                      |             |
 
 ## Disclaimer
 

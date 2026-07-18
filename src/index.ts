@@ -3,11 +3,8 @@ import {config} from './config.js';
 import {CacheService} from './services/cacheService.js';
 import {TranslationService} from './services/translationService.js';
 import {RssService} from './services/rssService.js';
-import {configureGenkit} from './services/genkitService.js';
 
 const start = async () => {
-  configureGenkit();
-
   const cacheService = new CacheService(config.redis);
   const translationService = new TranslationService(cacheService);
   const rssService = new RssService(translationService);
