@@ -1,6 +1,6 @@
 # RSS Feed Translator
 
-This project is a web server that translates the titles of an RSS feed from a source language to a target language. It is built with Node.js, Fastify, and TypeScript, and it leverages multiple translation providers and Redis for caching. The entire application is containerized with Docker for easy deployment and scalability.
+This project is a web server that translates the titles of an RSS feed from a source language to a target language. It is built with Go (Golang) and leverages Redis for caching. The entire application is containerized with Docker for easy deployment and scalability.
 
 ## Features
 
@@ -12,10 +12,10 @@ This project is a web server that translates the titles of an RSS feed from a so
 
 ## Technologies Used
 
-- **Backend**: [Node.js](https://nodejs.org/), [Fastify](https://fastify.dev/), [TypeScript](https://www.typescriptlang.org/)
+- **Backend**: [Go](https://go.dev/) (v1.26)
 - **Translation**: [Google Cloud Translation API](https://cloud.google.com/translate/docs)
 - **Database**: [Redis](https://redis.io/) for caching
-- **Parsing**: `xml2js` for parsing RSS feeds
+- **Parsing**: `beevik/etree` for dynamic XML RSS feed parsing and manipulation
 - **Containerization**: [Docker](https://www.docker.com/), [Docker Compose](https://docs.docker.com/compose/)
 
 ## Getting Started
@@ -24,7 +24,7 @@ Follow these instructions to get a copy of the project up and running on your lo
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) (v24 or later)
+- [Go](https://go.dev/) (v1.26 or later)
 - [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/)
 
 ### Installation
@@ -35,9 +35,9 @@ Follow these instructions to get a copy of the project up and running on your lo
     cd rss-translate
     ```
 
-2.  **Install dependencies:**
+2.  **Download dependencies:**
     ```bash
-    npm install
+    go mod download
     ```
 
 3.  **Set up environment variables:**
@@ -53,10 +53,10 @@ Follow these instructions to get a copy of the project up and running on your lo
 
 #### Development
 
-To run the application in development mode with hot-reloading:
+To run the application locally:
 
 ```bash
-npm run dev
+go run main.go
 ```
 
 The server will be available at `http://localhost:3000`.
@@ -116,24 +116,13 @@ The workflow is defined in `.github/workflows/docker-publish.yml` and will trigg
 To publish a new version:
 
 1.  Ensure all your changes are committed to the main branch.
-2.  Run the `npm version` command to bump the version, create a commit, and tag it.
+2.  Tag your commit with the next version and push it.
     ```bash
-    # For a patch release (e.g., v1.0.0 -> v1.0.1)
-    npm version patch
+    # Create a version tag
+    git tag v1.1.0
 
-    # Or for a minor release (e.g., v1.0.1 -> v1.1.0)
-    npm version minor
-    ```
-3.  Push the commit and the new tag to GitHub. This will trigger the workflow.
-    ```bash
-    git push --follow-tags
+    # Push the tag to GitHub
+    git push origin v1.1.0
     ```
 
 GitHub Actions will then automatically build and push the image to `ghcr.io/${{ github.repository }}`.
-
-## Future Improvements
-
-- Translate additional fields in the RSS feed, such as `description`.
-- Add support for more translation providers.
-- Implement a more robust error-handling and logging strategy.
-- Add unit and integration tests.
